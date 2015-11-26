@@ -24,3 +24,9 @@ test('unsplat function', function() {
   equal(joinElements(1, 2), '1 2', 'Concat elements');
   equal(joinElements('-', '$', '/', '!', ':'), '- $ / ! :', 'Concat elements');
 });
+
+test('unsplat function', function() {
+  expect(1);
+  var result = [100, 1, 0, 10, -1, -2, -1].sort(comparator(lessOrEqual));
+  deepEqual(result, [-2, -1, -1, 0, 1, 10, 100], 'Concat elements');
+});
