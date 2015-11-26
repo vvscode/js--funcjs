@@ -24,7 +24,7 @@ gulp.task("build_spec", function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['spec/**/*.*', 'src/**/*.*'], ['build', 'build_spec', 'test']);
+  gulp.watch(['spec/**/*.js', 'src/**/*.js'], ['build', 'build_spec', 'test']);
 });
 
 gulp.task('default', ['build', 'build_spec', 'test', 'watch']);

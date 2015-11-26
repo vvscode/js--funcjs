@@ -17,3 +17,10 @@ test('splat function', function() {
     'so that its elements serve as its arguments');
 
 });
+
+test('unsplat function', function() {
+  expect(2);
+  var joinElements = unsplat(function(array) { return array.join(' ') });
+  equal(joinElements(1, 2), '1 2', 'Concat elements');
+  equal(joinElements('-', '$', '/', '!', ':'), '- $ / ! :', 'Concat elements');
+});

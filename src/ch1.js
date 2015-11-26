@@ -8,3 +8,9 @@ function splat(fun) {
     return fun.apply(null, array);
   }
 }
+
+function unsplat(fun) {
+  return function() {
+    return fun.call(null, [].splice.call(arguments,0));
+  }
+}
