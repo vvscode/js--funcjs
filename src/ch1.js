@@ -31,3 +31,7 @@ function comparator(pred) {
 function lessOrEqual(x, y) {
   return x <= y;
 }
+
+function existy(x) {
+  return x != null;
+}

@@ -30,3 +30,13 @@ test('unsplat function', function() {
   var result = [100, 1, 0, 10, -1, -2, -1].sort(comparator(lessOrEqual));
   deepEqual(result, [-2, -1, -1, 0, 1, 10, 100], 'Concat elements');
 });
+
+test('existy', function() {
+  expect(6);
+  equal(existy(null), false, 'null not existy');
+  equal(existy(undefined), false, 'undefined not existy');
+  equal(existy({}.notHere), false, 'unknown property not existy');
+  equal(existy((function(){})()), false, 'empty result not existy');
+  equal(existy(0), true, '0 is existy');
+  equal(existy(false), true, 'false is existy');
+});
