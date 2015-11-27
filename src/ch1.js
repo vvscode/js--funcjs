@@ -35,3 +35,20 @@ function existy(x) {
 function truthy(x) {
   return (x !== false) && existy(x)
 }
+
+function doWhen(cond, action) {
+  if(truthy(cond)) {
+    return action();
+  }
+  return undefined;
+}
+
+function executeIfHasField(target, name) {
+  return doWhen(existy(target[name]), function() {
+    var result = _.result(target, name);
+    // todo: check babel settings to fix failing
+    // on template strings
+    console.log('The result is ', result);
+    return result;
+  });
+}

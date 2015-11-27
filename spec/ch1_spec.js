@@ -48,3 +48,10 @@ test('truthy', function() {
   equal(truthy(0), true, '0 is not truthy');
   equal(truthy(''), true, '"" is not truthy');
 });
+
+test('executeIfHasField', function() {
+  expect(3);
+  deepEqual(executeIfHasField([1,2,3], 'reverse'), [3, 2, 1]);
+  equal(executeIfHasField({foo: 42}, 'foo'), 42);
+  equal(executeIfHasField([1,2,3], 'notHere'), undefined);
+});
