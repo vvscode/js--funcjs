@@ -15,10 +15,6 @@ function unsplat(fun) {
   }
 }
 
-function truthy(val) {
-  return !!val;
-}
-
 function comparator(pred) {
   return function(x, y) {
     if (truthy(pred(x, y)))return -1;
@@ -34,4 +30,8 @@ function lessOrEqual(x, y) {
 
 function existy(x) {
   return x != null;
+}
+
+function truthy(x) {
+  return (x !== false) && existy(x)
 }

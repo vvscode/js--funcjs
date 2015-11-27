@@ -40,3 +40,11 @@ test('existy', function() {
   equal(existy(0), true, '0 is existy');
   equal(existy(false), true, 'false is existy');
 });
+
+test('truthy', function() {
+  expect(4);
+  equal(truthy(false), false, 'false is not truthy');
+  equal(truthy(undefined), false, 'undefined is not truthy');
+  equal(truthy(0), true, '0 is not truthy');
+  equal(truthy(''), true, '"" is not truthy');
+});
