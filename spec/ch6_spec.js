@@ -109,3 +109,13 @@ test('trampoline', function() {
     equal(isEvenSafe(2000001), false);
   }
 });
+
+test('generators', function() {
+  equal(genHead(ints), 0);
+  equal(genTail(ints).head, 1);
+  equal(genTail(genTail(ints)).head, 2);
+
+  deepEqual(genTake(10, ints), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  equal(genTake(100, ints).length, 100);
+  equal(genTake(1000, ints).length, 1000);
+})
