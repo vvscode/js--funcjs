@@ -126,3 +126,70 @@ function flat(array) {
     return cat.apply(cat, _.map(array, flat)); else
     return [array];
 }
+
+function deepClone(obj) {
+  if (!existy(obj) || !_.isObject(obj)) {
+    return obj;
+  }
+  var temp = new obj.constructor();
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      temp[key] = deepClone(obj[key]);
+    }
+  }
+  return temp;
+}
+
+function visit(mapFun, resultFun, array) {
+  if (_.isArray(array)) {
+    return resultFun(_.map(array, mapFun));
+  }
+  return resultFun(array);
+}
+
+function partial1(fun, arg1) {
+  return function(/* args */) {
+    var args = construct(arg1, arguments);
+    return fun.apply(fun, args);
+  };
+}
+
+
+function partial2(fun, arg1, arg2) {
+  return function(/* args */) {
+    var args = cat([arg1, arg2], arguments);
+    return fun.apply(fun, args);
+  };
+}
+
+function evenOline(n) {
+  if (n === 0)
+    return true; else
+    return partial1(oddOline, Math.abs(n) - 1);
+}
+
+function oddOline(n) {
+  if (n === 0)
+    return false; else
+    return partial1(evenOline, Math.abs(n) - 1);
+}
+
+function trampoline(fun /*, args */) {
+  var result = fun.apply(fun, _.rest(arguments));
+  while (_.isFunction(result)) {
+    result = result();
+  }
+  return result;
+}
+
+function isEvenSafe(n) {
+  if (n === 0)
+    return true; else
+    return trampoline(partial1(oddOline, Math.abs(n) - 1));
+}
+
+function isOddSafe(n) {
+  if (n === 0)
+    return false; else
+    return trampoline(partial1(evenOline, Math.abs(n) - 1));
+}

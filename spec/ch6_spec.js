@@ -77,4 +77,35 @@ test('orify', function() {
 test('flat', function() {
   deepEqual(flat([[1, 2], [3, 4]]), [1, 2, 3, 4]);
   deepEqual(flat([[1, 2], [3, 4, [5, 6, [[[7]]], 8]]]), [1, 2, 3, 4, 5, 6, 7, 8]);
-})
+});
+
+test('deepClone', function() {
+  var x = [{ a: [1, 2, 3], b: 42 }, { c: { d: [] } }];
+  var y = deepClone(x);
+
+  equal(_.isEqual(x, y), true);
+  y[1].c.d = 42;
+  equal(_.isEqual(x, y), false);
+});
+
+test('visit', function() {
+  equal(visit(_.identity, _.isNumber, 42), true);
+  deepEqual(visit(_.isNumber, _.identity, [1, 2, null, 3]), [true, true, false, true]);
+  deepEqual(visit(function(n) { return n*2 }, rev, _.range(10)),
+    [18, 16, 14, 12, 10, 8, 6, 4, 2, 0]);
+});
+
+test('trampoline', function() {
+  equal(trampoline(oddOline, 3), true);
+
+  const NORMAL_TESTS_RUN = true;
+  if(!NORMAL_TESTS_RUN) {
+    // cause next test takes a lot of time an process power
+    equal(trampoline(evenOline, 200000), true);
+    equal(trampoline(oddOline, 300000), false);
+    equal(trampoline(evenOline, 200000000), true);
+
+    equal(isOddSafe(2000001), true);
+    equal(isEvenSafe(2000001), false);
+  }
+});
