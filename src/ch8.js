@@ -33,3 +33,42 @@ function LazyChainChainChain(obj) {
   this._target = isLC ? obj._target : obj;
 }
 LazyChainChainChain.prototype = LazyChain.prototype;
+
+function pipeline(seed /*, args */) {
+  return _.reduce(_.rest(arguments), function(l, r) {
+    return r(l);
+  }, seed);
+}
+
+
+function fifth(a) {
+  return pipeline(a
+    , _.rest
+    , _.rest
+    , _.rest
+    , _.rest
+    , _.first);
+}
+
+function negativeFifth(a) {
+  return pipeline(a
+    , fifth
+    , function(n) {
+      return -n
+    });
+}
+
+function firstEditions(table) {
+  return pipeline(table,
+    function(t) {
+      return as(t, { ed: 'edition' })
+    },
+    function(t) {
+      return project(t, ['title', 'edition', 'isbn'])
+    },
+    function(t) {
+      return restrict(t, function(book) {
+        return book.edition === 1;
+      });
+    });
+}
