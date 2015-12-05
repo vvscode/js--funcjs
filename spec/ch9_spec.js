@@ -39,9 +39,15 @@ test('processTriples', function() {
 });
 
 test('polyToString', function() {
-  equal(polyToString([1,2,3]), "[1,2,3]");
-  equal(polyToString([1,2,[3,4]]), "[1,2,[3,4]]");
+  equal(polyToString([1, 2, 3]), "[1,2,3]");
+  equal(polyToString([1, 2, [3, 4]]), "[1,2,[3,4]]");
   equal(polyToString(42), '42');
   equal(polyToString('a'), 'a');
-  equal(polyToString([1,2,{a: 42, b: [4,5,6]}, 77]), '[1,2,{"a":42,"b":[4,5,6]},77]');
+  equal(polyToString([1, 2, { a: 42, b: [4, 5, 6] }, 77]), '[1,2,{"a":42,"b":[4,5,6]},77]');
+  equal(polyToString(new Container(_.range(5))), "{\"_value\":[0,1,2,3,4]}");
+});
+
+test('Prototype muting', function() {
+  equal((new Container(42)).toString(), "@<42>");
+  equal((new Container({ a: 42, b: [1, 2, 3] })).toString(), "@<{\"a\":42,\"b\":[1,2,3]}>");
 });
