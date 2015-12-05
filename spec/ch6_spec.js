@@ -1,4 +1,4 @@
-module("Chapter 3", {
+module("Chapter 6", {
   setup: function() {
     // prepare something for all following tests
   },
