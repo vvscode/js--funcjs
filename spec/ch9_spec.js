@@ -37,3 +37,11 @@ test('validateTripleStore', function() {
 test('processTriples', function() {
   equal(processTriples("[[2,1,3], [7,7,1], [0,9,5]]"), "1,7,9");
 });
+
+test('polyToString', function() {
+  equal(polyToString([1,2,3]), "[1,2,3]");
+  equal(polyToString([1,2,[3,4]]), "[1,2,[3,4]]");
+  equal(polyToString(42), '42');
+  equal(polyToString('a'), 'a');
+  equal(polyToString([1,2,{a: 42, b: [4,5,6]}, 77]), '[1,2,{"a":42,"b":[4,5,6]},77]');
+});

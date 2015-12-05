@@ -82,3 +82,22 @@ function processTriples(data) {
     , invoker('sort', Array.prototype.sort)
     , str);
 }
+
+var polyToString = dispatch(
+  function(s) {
+    return _.isString(s) ? s : undefined
+  },
+  function(s) {
+    return _.isArray(s) ? stringifyArray(s) : undefined
+  },
+  function(s) {
+    return _.isObject(s) ? JSON.stringify(s) : undefined
+  },
+  function(s) {
+    return s.toString()
+  }
+);
+
+function stringifyArray(ary) {
+  return ["[", _.map(ary, polyToString).join(","), "]"].join('');
+}
